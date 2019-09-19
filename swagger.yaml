@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: TOAP API
+  description: API Doc for toap-api.
+  version: 0.1.1
+servers:
+  - url: http://localhost:3001/
+    description: for localhost
+paths:
+  /api/signIn:
+    post:
+      summery: User Login
+      description: should login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  example:
+                    email: 'a@example.com'
+                    password: '********'
+      responses:
+        '200':
+          description: OK
+    

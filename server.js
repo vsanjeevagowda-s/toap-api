@@ -11,29 +11,9 @@ const { jwt, currentUser } = require('./lib/jsonWebToken');
 const path = require('path');
 
 const {
-  ProxyServer,
-} = require('./lib/proxy-server');
-const {
-  closeDuplicateConnection,
-  getFreePort,
-} = require('./src/helpers/ssh');
-
-const {
-  register,
   session,
-  device,
-  location,
-  alert,
-  scene,
-  sceneGroup,
-  webhook,
-  sceneType,
-  organization,
-  userInvitation,
-  deviceMonitoring,
-  mfa,
 } = require('./routes');
-const respStructure = require('./src/api/apiResponse');
+const respStructure = require('./src/api/v1/apiResponse');
 
 const swaggerDocument = YAML.load('./swagger.yaml');
 const config = require('./config/environment');
@@ -48,7 +28,7 @@ app.options('*', cors());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
-  res.json({ title: 'Welcome topa api!!' });
+  res.json({ title: 'Welcome toap api!!' });
 });
 
 app.use(jwt());
@@ -65,13 +45,12 @@ app.use((req, res, next) => {
   next();
 });
 
-register(app);
 session(app);
 
 
 const server = app.listen(config.web_port, () => {
-  infoLogger({ message: `Edgeplayer api listening on port ${config.web_port}!` });
-  console.log(`Edgeplayer api listening on port ${config.web_port}!`);
+  infoLogger({ message: `toap api listening on port ${config.web_port}!` });
+  console.log(`toap api listening on port ${config.web_port}!`);
 });
 
 module.exports = app;
