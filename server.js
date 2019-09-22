@@ -8,10 +8,11 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const { requestlogger, infoLogger } = require('./config/winston');
 const { jwt, currentUser } = require('./lib/jsonWebToken');
-const path = require('path');
 
 const {
   session,
+  test,
+  user,
 } = require('./routes');
 const respStructure = require('./src/api/v1/apiResponse');
 
@@ -46,6 +47,8 @@ app.use((req, res, next) => {
 });
 
 session(app);
+test(app);
+user(app);
 
 
 const server = app.listen(config.web_port, () => {

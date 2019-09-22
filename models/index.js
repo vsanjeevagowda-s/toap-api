@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { infoLogger } = require('../config/winston');
 const User = require('./user.model');
+const Test = require('./test.model');
 const config = require('../config/environment');
 mongoose.set('debug', (coll, method, query, doc) => {
   infoLogger({
@@ -23,5 +24,6 @@ db.on('connected', () => {
 
 module.exports = {
   User,
+  Test,
   db,
 };

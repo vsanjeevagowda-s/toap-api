@@ -26,10 +26,10 @@ const responseStructure = (type, data) => {
       };
       break;
       case 'ERROR':
-        dataObj = { extra: { error: data }, type: 'DATABASE_ERROR', success: false };
+        dataObj = { error: data, type: 'DATABASE_ERROR', success: false };
         break;
       case 'AUTH_ERROR':
-        dataObj = { extra: { error: data }, type: 'AUTHORIZATION ERROR', success: false };
+        dataObj = { error: data, type: 'AUTHORIZATION ERROR', success: false };
         break;
   }
   return dataObj;

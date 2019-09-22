@@ -3,7 +3,7 @@ const { ACCOUNT_STATUS } = require('../config/constants');
 
 const { Schema } = mongoose;
 
-const schema = new Schema({
+const uesrSchema = new Schema({
   email: {
     type: String, unique: true, required: true, lowercase: true,
   },
@@ -13,6 +13,6 @@ const schema = new Schema({
   otp : {type: String}
 });
 
-schema.set('toJSON', { virtuals: true });
+uesrSchema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('User', uesrSchema);
