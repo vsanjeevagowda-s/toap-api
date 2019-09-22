@@ -13,6 +13,7 @@ const {
   session,
   test,
   user,
+  question,
 } = require('./routes');
 const respStructure = require('./src/api/v1/apiResponse');
 
@@ -49,6 +50,7 @@ app.use((req, res, next) => {
 session(app);
 test(app);
 user(app);
+question(app);
 
 
 const server = app.listen(config.web_port, () => {

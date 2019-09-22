@@ -8,6 +8,8 @@ const questionOptionSchema = new Schema({
   }
 });
 
+questionOptionSchema.set('toJSON', { virtuals: true });
+
 const questionSchema = new Schema({
   title: { type: String },
   description: { type: String },
@@ -15,6 +17,8 @@ const questionSchema = new Schema({
   options: [questionOptionSchema],
   answer: { type: String }
 });
+
+questionSchema.set('toJSON', { virtuals: true });
 
 const testSchema = new Schema({
   title: { type: String, required: true },
