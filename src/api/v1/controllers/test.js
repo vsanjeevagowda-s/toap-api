@@ -18,7 +18,7 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    const tests = await Test.find({});
+    const tests = await Test.find({creator_id: req.current_user});
     const message = 'Test listed successfully';
     return res.status(201).json(respStructure.responseStructure('POST', { message, tests }));
   } catch (error) {
