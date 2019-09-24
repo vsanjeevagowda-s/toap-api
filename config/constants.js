@@ -3,6 +3,12 @@ const USER_ROLES = {
   CANDIDATE: 2,
 };
 
+const TEST_STATUS = {
+  DRAFT: 'Draft',
+  PUBLISHED: 'Published'
+}
+
 module.exports = {
   USER_ROLES,
+  TEST_STATUS,
 };

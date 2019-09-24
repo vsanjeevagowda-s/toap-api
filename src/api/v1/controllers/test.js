@@ -5,9 +5,9 @@ const { errorLogger } = require('../../../../config/winston');
 
 const create = async (req, res) => {
   try {
-    const { title, description, creator_email } = req.body.test;
+    const { title, description, creator_email, time_limit } = req.body.test;
     const user = await User.findOne({ email: creator_email });
-    const test = await Test.create({ title, description, creator_id: user });
+    const test = await Test.create({ title, description, creator_id: user, time_limit });
     const message = 'Test created successfully';
     return res.status(201).json(respStructure.responseStructure('POST', { message, test }));
   } catch (error) {
@@ -18,7 +18,7 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
   try {
-    const tests = await Test.find({creator_id: req.current_user});
+    const tests = await Test.find({creator_id: req.currentUser.id});
     const message = 'Test listed successfully';
     return res.status(201).json(respStructure.responseStructure('POST', { message, tests }));
   } catch (error) {
