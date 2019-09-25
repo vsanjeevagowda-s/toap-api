@@ -6,16 +6,17 @@ const { DRAFT } = TEST_STATUS;
 const questionOptionSchema = new Schema({
   title: {
     type: String,
+    required: true,
   }
 });
 
 questionOptionSchema.set('toJSON', { virtuals: true });
 
 const questionSchema = new Schema({
-  title: { type: String },
-  description: { type: String },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   options: [questionOptionSchema],
-  answer: { type: String }
+  answer: { type: String, required: true }
 });
 
 questionSchema.set('toJSON', { virtuals: true });

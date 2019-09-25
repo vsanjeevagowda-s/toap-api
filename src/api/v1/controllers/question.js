@@ -5,9 +5,9 @@ const { errorLogger } = require('../../../../config/winston');
 
 const create = async (req, res) => {
   try{
-    const { questions } = req.body;
+    const { question } = req.body;
     const { id } = req.params;
-    const test = await Test.update({_id: id}, { $push: { questions } });
+    const test = await Test.update({_id: id}, { $push: { questions: question } });
     const message = 'Questions saved successfully';
     return res.status(201).json(respStructure.responseStructure('POST', { message, test }));
   }catch(error){
