@@ -1,4 +1,5 @@
 const hmve = require('hmve');
+const mongoose = require('mongoose');
 const { Test, User } = require('../../../../models');
 const respStructure = require('../apiResponse');
 const { errorLogger } = require('../../../../config/winston');
@@ -34,6 +35,47 @@ const list = async (req, res) => {
     errorLogger({ error });
     return res.status(400).json(respStructure.responseStructure('ERROR', { message: hmve(Test, error).message }));
   }
+};
+
+const getTestById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.currentUser;
+    const aggregateQueryArray = [
+      { 
+        "$match": 
+        { 
+          "_id": 
+          { 
+            "$in": [ mongoose.Types.ObjectId(id) ] 
+          } 
+        } 
+      }, 
+      { 
+        $project: 
+        { 
+          noofquestions: 
+          { 
+            $size: '$questions' 
+          },
+          time_limit: 1,
+          title: 1,
+          description: 1,
+        },
+      }
+    ]
+    if(role == ADMIN) {
+      aggregateQueryArray[1].$project.status = 1;
+    }else if(role == CANDIDATE){
+      aggregateQueryArray[1].$project.creator_id = 1;
+    }
+    const test = await Test.aggregate(aggregateQueryArray)
+    if(!(test && test[0])) throw new Error('Test not found!!');
+    return res.status(201).json(respStructure.responseStructure('POST', { test: test[0] }));
+  } catch (error) {
+    errorLogger({ error });
+    return res.status(400).json(respStructure.responseStructure('ERROR', { message: hmve(Test, error).message }));
+  }
 }
 
-module.exports = { create, list };
+module.exports = { create, list, getTestById };

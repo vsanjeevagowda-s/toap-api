@@ -6,6 +6,7 @@ let { ADMIN, CANDIDATE} = USER_ROLES;
 const testRoutes = (app) => {
   app.post('/api/v1/test', authorize([ADMIN]), test.create);
   app.get('/api/v1/tests', authorize([ADMIN, CANDIDATE]), test.list);
+  app.get('/api/v1/tests/:id', authorize([ADMIN, CANDIDATE]), test.getTestById);
 };
 
 module.exports = testRoutes;
